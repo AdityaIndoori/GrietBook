@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "509174176546",
+    "firebase_url": "https://fir-user-3480c.firebaseio.com",
+    "project_id": "fir-user-3480c",
+    "storage_bucket": "fir-user-3480c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:509174176546:android:474b629c64a67e73",
+        "android_client_info": {
+          "package_name": "com.example.aditya.firebaseuser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "509174176546-qnasd05uevt05234cvtll8pm7deo0li0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIu7lGMLxRsh-He3LTuUfGnyZEzqBlxqo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

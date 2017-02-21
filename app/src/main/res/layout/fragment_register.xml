@@ -1,0 +1,100 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.aditya.firebaseuser.RegisterFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:text="@string/register_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewRegisterHeading"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:layout_margin="8dp"
+        android:fontFamily="monospace"
+        android:textStyle="normal|bold" />
+    <TextView
+        android:text="@string/firebase_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewFireBaseHeading"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/textViewRegisterHeading"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:layout_margin="8dp"
+        android:textStyle="normal|bold"
+        android:textColor="@color/colorPrimary"
+        android:textAllCaps="false"
+        android:textSize="30sp"
+        android:fontFamily="monospace" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="12dp"
+        android:layout_below="@id/textViewFireBaseHeading"
+        android:id="@+id/linearLayout">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:id="@+id/editTextEmailRegister"
+            android:background="#fff"
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            android:hint="Email ID"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/editTextPasswordRegister"
+            android:hint="Password"
+            android:background="#fff"
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            />
+
+        <Button
+            android:text="Register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonRegister"
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            android:background="@color/colorPrimary"
+            android:textColor="#fff"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:text="@string/already_registered"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewAlreadyRegistered"
+                android:layout_margin="8dp"
+                android:padding="8dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:text="@string/forgot_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewForgotPasswordRegister"
+                android:layout_margin="8dp"
+                android:padding="8dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

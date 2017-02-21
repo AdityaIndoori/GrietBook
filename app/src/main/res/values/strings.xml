@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">GrietBookβ</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_heading">Login</string>
+    <string name="register_heading">Register</string>
+    <string name="firebase_heading">GrietBook β</string>
+    <string name="new_user">New User?</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="already_registered">Already Registered?</string>
+    <string name="forgot_password_toast">Under Development..But you can call me and I will reset it</string>
+</resources>

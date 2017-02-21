@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_post_registration"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.aditya.firebaseuser.PostRegistrationActivity">
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:id="@+id/textViewHeadingPR"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:layout_margin="10dp"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-condensed" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayoutETPR"
+        android:orientation="vertical"
+        android:layout_below="@id/textViewHeadingPR">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:civ_border_color="#EEEEEE"
+            app:civ_border_width="4dp"
+            android:id="@+id/imageViewProfilePR"
+            app:civ_shadow="true"
+            app:civ_shadow_radius="10"
+            app:civ_shadow_color="#5e6555"
+            android:layout_gravity="center"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editTextNamePR"
+            android:hint="Name"
+            android:background="#fff"
+            android:layout_margin="8dp"
+            android:padding="8dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editTextAddressPR"
+            android:hint="Address"
+            android:background="#fff"
+            android:layout_margin="8dp"
+            android:padding="8dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:ems="10"
+            android:id="@+id/editTextPhonePR"
+            android:hint="Phone Number"
+            android:background="#fff"
+            android:layout_margin="8dp"
+            android:padding="8dp"/>
+
+        <Button
+            android:text="save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonSaveInfoPR"
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            android:background="@color/colorPrimary"
+            android:textColor="#fff"/>
+    </LinearLayout>
+
+
+</RelativeLayout>
