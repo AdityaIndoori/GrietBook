@@ -28,13 +28,13 @@
         android:layout_below="@id/textViewHeadingPR">
 
         <com.mikhaellopez.circularimageview.CircularImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             app:civ_border_color="#EEEEEE"
-            app:civ_border_width="4dp"
+            app:civ_border_width="2dp"
             android:id="@+id/imageViewProfilePR"
             app:civ_shadow="true"
-            app:civ_shadow_radius="10"
+            app:civ_shadow_radius="5"
             app:civ_shadow_color="#5e6555"
             android:layout_gravity="center"/>
 

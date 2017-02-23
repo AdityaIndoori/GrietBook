@@ -7,37 +7,134 @@
     android:background="#f5f5f5"
     android:layout_height="match_parent"
     tools:context="com.example.aditya.firebaseuser.PostLoginActivity">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:id="@+id/textViewPL"
-        android:layout_margin="8dp"
-        android:padding="8dp"/>
 
     <com.mikhaellopez.circularimageview.CircularImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         app:civ_border_color="#EEEEEE"
-        app:civ_border_width="4dp"
+        app:civ_border_width="2dp"
+        android:layout_marginTop="4dp"
         android:id="@+id/imageViewProfilePL"
         app:civ_shadow="true"
-        app:civ_shadow_radius="10"
+        app:civ_shadow_radius="5"
         app:civ_shadow_color="#5e6555"
-        android:layout_below="@id/textViewPL"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         />
-
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageViewProfilePL"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textViewUserNamePL"
+        android:layout_marginBottom="8dp"
+        android:paddingBottom="8dp"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.SearchResult.Title" />
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textViewUserDetailsPL"
-        android:layout_below="@id/imageViewProfilePL"
-        android:textSize="18sp"
-        android:layout_margin="8dp"
-        android:padding="8dp"
-        android:elevation="3dp"
-        android:background="#fff"/>
+        android:layout_below="@id/textViewUserNamePL"
+        android:id="@+id/relativeLayoutUserDetailsPL">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="4dp"
+            android:padding="4dp"
+            android:id="@+id/linearLayoutEmailPL"
+            android:layout_alignParentTop="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email ID:"
+                android:layout_weight="3"
+                android:gravity="left"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="4dp"
+                android:layout_marginLeft="4dp"
+                android:id="@+id/textViewEmailPL"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/linearLayoutPhoneNumberPL"
+            android:layout_below="@id/linearLayoutEmailPL"
+            android:layout_margin="4dp"
+            android:padding="4dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Phone:"
+                android:gravity="left"
+                android:layout_weight="3"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="4dp"
+                android:layout_marginLeft="4dp"
+                android:id="@+id/textViewPhoneNumberPL"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/linearLayoutAddressPL"
+            android:layout_below="@id/linearLayoutPhoneNumberPL"
+            android:layout_margin="4dp"
+            android:padding="4dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Address:"
+                android:gravity="left"
+                android:layout_weight="3"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="4dp"
+                android:id="@+id/textViewAddressPL"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    android:layout_below="@id/relativeLayoutUserDetailsPL"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/textViewVerificationPL"
+        android:gravity="center"
+        android:textStyle="normal|bold"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
+
+</ScrollView>
 
 </RelativeLayout>

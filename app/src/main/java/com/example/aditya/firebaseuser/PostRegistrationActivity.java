@@ -20,10 +20,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -98,10 +101,13 @@ public class PostRegistrationActivity extends AppCompatActivity implements View.
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemID = item.getItemId();
         if (itemID == R.id.menuLogoutItemPR){
-            pressedLogOut();
+            firebaseAuth.signOut();
+            finish();
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
         }
         if (itemID == R.id.menuSkipItemPR){
-            pressedSkip();
+            finish();
+            startActivity(new Intent(getApplicationContext(),PostLoginActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
@@ -118,8 +124,25 @@ public class PostRegistrationActivity extends AppCompatActivity implements View.
         userInformation.setName(name);
         userInformation.setAddress(address);
         userInformation.setPhoneNumber(phoneNumber);
+
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         databaseReference.child(firebaseUser.getUid()).setValue(userInformation);
+
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(name)
+                .build();
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Hold On...");
+        progressDialog.show();
+        firebaseUser.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                progressDialog.dismiss();
+                if (!task.isSuccessful()){
+                    Toast.makeText(getApplicationContext(),"Couldn't update DisplayName",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         uploadImageAndSave();
         Toast.makeText(this,"Information Saved!",Toast.LENGTH_SHORT).show();
     }
@@ -135,10 +158,26 @@ public class PostRegistrationActivity extends AppCompatActivity implements View.
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     progressDialog.dismiss();
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    Toast.makeText(getApplicationContext(),"Uploaded Image!",Toast.LENGTH_SHORT).show();
                     Log.v("URL",downloadUrl.toString()+"");
-                    finish();
-                    startActivity(new Intent(getApplicationContext(),PostLoginActivity.class));
+                    progressDialog.setTitle("One moment..");
+                    progressDialog.show();
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setPhotoUri(Uri.parse(downloadUrl.toString()))
+                            .build();
+                    FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(),"Uploaded Image!",Toast.LENGTH_SHORT).show();
+                            finish();
+                            startActivity(new Intent(getApplicationContext(),PostLoginActivity.class));
+                        }
+                            else
+                                Toast.makeText(getApplicationContext(),"Couldn't update PhotoUri",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -155,91 +194,8 @@ public class PostRegistrationActivity extends AppCompatActivity implements View.
             });
         }
         else {
-            Toast.makeText(getApplicationContext(),"Failed to get URI path",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Failed to load photo",Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void pressedLogOut() {
-        UserInformation userInformation = new UserInformation();
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        databaseReference.child(firebaseUser.getUid()).setValue(userInformation);
-        uploadDefaultImageAndLogOut();
-    }
-
-    private void uploadDefaultImageAndLogOut() {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Uploading...");
-        progressDialog.show();
-        StorageReference riversRef = storageReference.child("images/DP_"+firebaseAuth.getCurrentUser().getUid().trim()+".jpg");
-        Uri uriOfDefaultImage = Uri.parse("android.resource://com.example.aditya.firebaseuser/drawable/"+R.drawable.default_profile);
-        riversRef.putFile(uriOfDefaultImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                progressDialog.dismiss();
-                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                Toast.makeText(getApplicationContext(),"Logged Out!",Toast.LENGTH_SHORT).show();
-                Log.v("URL Default",downloadUrl.toString()+"");
-                firebaseAuth.signOut();
-                finish();
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(getApplicationContext(),"Unable to Logout",Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        double progress = 100 * taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount();
-                        progressDialog.setMessage((int)progress + "% Completed");
-                    }
-                });
-
-    }
-
-    private void pressedSkip() {
-        UserInformation userInformation = new UserInformation();
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        databaseReference.child(firebaseUser.getUid()).setValue(userInformation);
-        uploadDefaultImageAndSkip();
-    }
-
-    private void uploadDefaultImageAndSkip() {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Uploading...");
-        progressDialog.show();
-        StorageReference riversRef = storageReference.child("images/DP_"+firebaseAuth.getCurrentUser().getUid().trim()+".jpg");
-        Uri uriOfDefaultImage = Uri.parse("android.resource://com.example.aditya.firebaseuser/drawable/"+R.drawable.default_profile);
-        riversRef.putFile(uriOfDefaultImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                progressDialog.dismiss();
-                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                Toast.makeText(getApplicationContext(),"Skipped!",Toast.LENGTH_SHORT).show();
-                Log.v("URL Default",downloadUrl.toString()+"");
-                finish();
-                startActivity(new Intent(getApplicationContext(),PostLoginActivity.class));
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(getApplicationContext(),"Unable to Skip",Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        double progress = 100 * taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount();
-                        progressDialog.setMessage((int)progress + "% Done");
-                    }
-                });
-
     }
 
     private void pressedImageView() {

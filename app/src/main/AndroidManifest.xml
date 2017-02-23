@@ -19,10 +19,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PostRegistrationActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".PostLoginActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".PostRegistrationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PostLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".VerifyEmailActivity" />
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog.Alert" />
+        <activity android:name=".ChangeUserDetailsActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog.Alert" ></activity>
     </application>
 
 </manifest>

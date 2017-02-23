@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_change_user_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.aditya.firebaseuser.ChangeUserDetailsActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:id="@+id/textViewHeadingCUD"
+        android:layout_alignParentTop="true"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.WindowTitle"
+        android:textSize="30sp" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="none|textPersonName"
+        android:ems="10"
+        android:layout_below="@id/textViewHeadingCUD"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/editTextUserDetailCUD"
+        android:layout_margin="8dp"
+        android:padding="8dp"/>
+
+    <Button
+        android:text="Update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/buttonUserDetailCUD"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:layout_below="@id/editTextUserDetailCUD"
+        android:background="@color/colorPrimary"/>
+</RelativeLayout>

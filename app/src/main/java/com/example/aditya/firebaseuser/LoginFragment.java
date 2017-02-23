@@ -82,8 +82,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
             viewpager.setCurrentItem(1,true);
         }
         if (view == textViewForgotPassword){
-            Toast.makeText(getContext(),getString(R.string.forgot_password_toast),Toast.LENGTH_LONG).show();
             //Forgot Password?
+            startActivity(new Intent(getContext(),ForgotPasswordActivity.class));
         }
 
     }

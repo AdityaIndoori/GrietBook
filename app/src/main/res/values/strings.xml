@@ -10,4 +10,5 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="already_registered">Already Registered?</string>
     <string name="forgot_password_toast">Under Development..But you can call me and I will reset it</string>
+    <string name="verificationNotice">You haven\'t Verified your account.\nVerification secures your account in case you forget your password.\n\nPlease Verify!</string>
 </resources>
