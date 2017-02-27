@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<com.mikhaellopez.circularimageview.CircularImageView
+    android:layout_width="70dp"
+    android:layout_height="70dp"
+    app:civ_border_color="#EEEEEE"
+    app:civ_border_width="2dp"
+    android:layout_margin="8dp"
+    android:id="@+id/imageViewProfileIBI"
+    app:civ_shadow="true"
+    app:civ_shadow_radius="5"
+    app:civ_shadow_color="#5e6555"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewFromUserNameIBI"
+        android:layout_toRightOf="@id/imageViewProfileIBI"
+        android:gravity="left"
+        android:layout_margin="4dp"
+        android:textSize="18sp"
+        android:typeface="monospace"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewFromEmailIdIBI"
+        android:layout_toRightOf="@id/imageViewProfileIBI"
+        android:layout_below="@id/textViewFromUserNameIBI"
+        android:gravity="left"
+        android:layout_margin="8dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorAccent"
+        android:layout_below="@id/imageViewProfileIBI"
+        android:layout_marginTop="4dp"/>
+</RelativeLayout>

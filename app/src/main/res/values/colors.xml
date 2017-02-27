@@ -2,5 +2,7 @@
 <resources>
     <color name="colorPrimary">#ffca28</color>
     <color name="colorPrimaryDark">#ffb300</color>
-    <color name="colorAccent">#ff8a65</color>
+    <color name="colorAccent">#ff4081</color>
+    <color name="Sent">#d1c4e9</color>
+    <color name="Receive">#80cbc4</color>
 </resources>

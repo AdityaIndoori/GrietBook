@@ -30,111 +30,144 @@
         android:layout_marginBottom="8dp"
         android:paddingBottom="8dp"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.SearchResult.Title" />
-    <RelativeLayout
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/editTextDetailsPL"
         android:layout_below="@id/textViewUserNamePL"
-        android:id="@+id/relativeLayoutUserDetailsPL">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="4dp"
-            android:padding="4dp"
-            android:id="@+id/linearLayoutEmailPL"
-            android:layout_alignParentTop="true">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Email ID:"
-                android:layout_weight="3"
-                android:gravity="left"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="4dp"
-                android:layout_marginLeft="4dp"
-                android:id="@+id/textViewEmailPL"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/linearLayoutPhoneNumberPL"
-            android:layout_below="@id/linearLayoutEmailPL"
-            android:layout_margin="4dp"
-            android:padding="4dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Phone:"
-                android:gravity="left"
-                android:layout_weight="3"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="4dp"
-                android:layout_marginLeft="4dp"
-                android:id="@+id/textViewPhoneNumberPL"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/linearLayoutAddressPL"
-            android:layout_below="@id/linearLayoutPhoneNumberPL"
-            android:layout_margin="4dp"
-            android:padding="4dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Address:"
-                android:gravity="left"
-                android:layout_weight="3"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="4dp"
-                android:id="@+id/textViewAddressPL"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-    </RelativeLayout>
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="6dp"
-    android:layout_below="@id/relativeLayoutUserDetailsPL"
-    >
+        android:padding="8dp"
+        android:layout_margin="8dp"
+        android:fontFamily="sans-serif" />
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/textViewVerificationPL"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewStatusPL"
+        android:layout_below="@id/textViewUserNamePL"
+        android:padding="16dp"
         android:gravity="center"
-        android:textStyle="normal|bold"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp" />
+        android:textStyle="normal|bold|italic"
+        android:fontFamily="sans-serif-condensed" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonDetailsPL"
+        android:layout_below="@id/editTextDetailsPL"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="8dp"
+        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewStatusPL"
+        android:id="@+id/scrollViewUserDetailsPL"
+        android:layout_margin="4dp">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/relativeLayoutUserDetailsPL"
+                android:background="#ffffff"
+                android:layout_margin="8dp"
+                android:layout_gravity="bottom"
+                android:elevation="4dp"
+                >
+                <RelativeLayout
+                    android:background="#fff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+                    android:id="@+id/relativeLayoutPhoneNumberPL"
+                    android:layout_alignParentTop="true">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/phoneLabel"
+                        android:id="@+id/textViewPhoneNumberNamePL"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textSize="16sp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/textViewPhoneNumberNamePL"
+                        android:layout_marginLeft="4dp"
+                        android:id="@+id/textViewPhoneNumberPL"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textSize="14sp" />
 
-</ScrollView>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:background="#eeeeee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:minHeight="?android:attr/listPreferredItemHeight"
+                    android:id="@+id/relativeLayoutEmailPL"
+                    android:layout_below="@id/relativeLayoutPhoneNumberPL">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Email ID:"
+                        android:id="@+id/textViewEmailLabelPL"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:id="@+id/textViewEmailPL"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/textViewEmailLabelPL"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:orientation="horizontal"
+                    android:minHeight="?android:attr/listPreferredItemHeight"
+                    android:id="@+id/relativeLayoutAddressPL"
+                    android:layout_below="@id/relativeLayoutEmailPL"
+                    android:paddingLeft="8dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Address:"
+                        android:gravity="left"
+                        android:id="@+id/textViewAddressLabelPL"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/textViewAddressLabelPL"
+                        android:id="@+id/textViewAddressPL"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </FrameLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

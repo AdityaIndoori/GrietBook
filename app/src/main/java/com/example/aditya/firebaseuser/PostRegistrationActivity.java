@@ -48,6 +48,8 @@ public class PostRegistrationActivity extends AppCompatActivity implements View.
     private DatabaseReference databaseReference;
     private Uri uriFilePath;
     private StorageReference storageReference;
+    private UserInformation userInformation;
+    private String dpURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,8 @@ public class PostRegistrationActivity extends AppCompatActivity implements View.
         profileImageView.setImageResource(R.drawable.default_profile);
         profileImageView.setOnClickListener(this);
 
+        userInformation = new UserInformation();
+        dpURL = "";
         saveButton.setOnClickListener(this);
     }
 
@@ -116,21 +120,26 @@ public class PostRegistrationActivity extends AppCompatActivity implements View.
         String name = nameEditText.getText().toString().trim();
         String address = addressEditText.getText().toString().trim();
         String phoneNumber = phoneNumberEditText.getText().toString().trim();
-        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(address) || TextUtils.isEmpty(phoneNumber) || uriFilePath == null){
-            Toast.makeText(getApplicationContext(),"Please Fill the Details",Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(address) || TextUtils.isEmpty(phoneNumber)){
+            String toastMessage = "Please Enter";
+            if (TextUtils.isEmpty(name))
+                toastMessage = toastMessage + ", Name";
+            if (TextUtils.isEmpty(address))
+                toastMessage = toastMessage + ", Address";
+            if (TextUtils.isEmpty(phoneNumber))
+                toastMessage = toastMessage + ", phone Number";
+            Toast.makeText(getApplicationContext(),toastMessage,Toast.LENGTH_SHORT).show();
             return;
         }
-        UserInformation userInformation = new UserInformation();
         userInformation.setName(name);
         userInformation.setAddress(address);
         userInformation.setPhoneNumber(phoneNumber);
+        userInformation.setUid(firebaseAuth.getCurrentUser().getUid());
 
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        databaseReference.child(firebaseUser.getUid()).setValue(userInformation);
 
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName(name)
-                .build();
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Hold On...");
         progressDialog.show();
@@ -138,29 +147,34 @@ public class PostRegistrationActivity extends AppCompatActivity implements View.
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 progressDialog.dismiss();
+                userInformation.setEmailID(firebaseAuth.getCurrentUser().getEmail());
                 if (!task.isSuccessful()){
                     Toast.makeText(getApplicationContext(),"Couldn't update DisplayName",Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        uploadImageAndSave();
+        databaseReference.child("User").child(firebaseUser.getUid()).setValue(userInformation);
         Toast.makeText(this,"Information Saved!",Toast.LENGTH_SHORT).show();
+        uploadImageAndSave();
     }
 
     private void uploadImageAndSave() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Uploading...");
         if (uriFilePath!= null){
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading...");
             progressDialog.show();
-            StorageReference riversRef = storageReference.child("images/DP_"+firebaseAuth.getCurrentUser().getUid().trim()+".jpg");
+            StorageReference riversRef = storageReference.child("ProfilePhoto/"+firebaseAuth.getCurrentUser().getUid().trim()+".jpg");
             riversRef.putFile(uriFilePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     progressDialog.dismiss();
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    dpURL = downloadUrl.toString();
+                    userInformation.setDpUrl(dpURL);
                     Log.v("URL",downloadUrl.toString()+"");
                     progressDialog.setTitle("One moment..");
                     progressDialog.show();
+                    databaseReference.child("User").child(firebaseAuth.getCurrentUser().getUid()).setValue(userInformation);
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                             .setPhotoUri(Uri.parse(downloadUrl.toString()))
                             .build();
@@ -194,7 +208,35 @@ public class PostRegistrationActivity extends AppCompatActivity implements View.
             });
         }
         else {
-            Toast.makeText(getApplicationContext(),"Failed to load photo",Toast.LENGTH_SHORT).show();
+            {
+                progressDialog.show();
+                StorageReference riversRef = FirebaseStorage.getInstance().getReference().child("ProfilePhoto/"+FirebaseAuth.getInstance().getCurrentUser().getUid().trim()+".jpg");
+
+                Uri uriOfDefaultImage = Uri.parse("android.resource://com.example.aditya.firebaseuser/drawable/"+R.drawable.default_profile);
+                riversRef.putFile(uriOfDefaultImage)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                progressDialog.dismiss();
+                                finish();
+                                startActivity(new Intent(getApplicationContext(),PostLoginActivity.class));
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progressDialog.dismiss();
+                                Toast.makeText(getApplicationContext(),"Unable to upload photo",Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                                double progress = 100 * taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount();
+                                progressDialog.setMessage((int)progress + "% Completed");
+                            }
+                        });
+            }
         }
     }
 

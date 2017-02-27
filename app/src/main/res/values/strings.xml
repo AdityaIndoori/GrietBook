@@ -11,4 +11,8 @@
     <string name="already_registered">Already Registered?</string>
     <string name="forgot_password_toast">Under Development..But you can call me and I will reset it</string>
     <string name="verificationNotice">You haven\'t Verified your account.\nVerification secures your account in case you forget your password.\n\nPlease Verify!</string>
+    <string name="phoneLabel">Phone:</string>
+    <string name="title_activity_inbox">Inbox</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

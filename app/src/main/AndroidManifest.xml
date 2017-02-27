@@ -3,6 +3,7 @@
     package="com.example.aditya.firebaseuser">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"
@@ -29,8 +30,21 @@
         <activity
             android:name=".ForgotPasswordActivity"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog.Alert" />
-        <activity android:name=".ChangeUserDetailsActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.Dialog.Alert" ></activity>
+        <activity
+            android:name=".SearchUserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OtherProfilePostSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SendMessagefromOtherProfile"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog.Alert" />
+        <activity
+            android:name=".InboxActivity"
+            android:label="@string/title_activity_inbox"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ChattingActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

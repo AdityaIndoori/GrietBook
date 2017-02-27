@@ -130,7 +130,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();//Store only text format
         UserInformation userInformation = new UserInformation();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-
+        userInformation.setUid(firebaseUser.getUid());
         firebaseUser.updateEmail(emailIdStr)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -139,7 +139,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
                     Toast.makeText(getContext(),"Unable to set User Email ID",Toast.LENGTH_SHORT).show();
             }
         });
-
+        userInformation.setEmailID(firebaseUser.getEmail());
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(userInformation.getName())
                 .setPhotoUri(Uri.parse("https://firebasestorage.googleapis.com/v0/b/fir-user-3480c.appspot.com/o/Default%20Image%2Fdefault_pic.jpg?alt=media&token=47b49f58-063b-4f73-a431-9efccfd432c0"))
@@ -148,12 +148,13 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
         firebaseUser.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if (!task.isSuccessful())
+                if (!task.isSuccessful()){
                     Toast.makeText(getContext(),"Unable to set User Profile",Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
-        databaseReference.child(firebaseUser.getUid()).setValue(userInformation);//We have stored the text data
+        userInformation.setDpUrl("https://firebasestorage.googleapis.com/v0/b/fir-user-3480c.appspot.com/o/Default%20Image%2Fdefault_pic.jpg?alt=media&token=47b49f58-063b-4f73-a431-9efccfd432c0");
+        databaseReference.child("User").child(firebaseUser.getUid()).setValue(userInformation);//We have stored the text data
         uploadDefaultImage(emailIdStr);//Upload the default profile photo
     }
 
@@ -161,7 +162,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Please wait...");
         progressDialog.show();
-        StorageReference riversRef = storageReference.child("images/DP_"+firebaseAuth.getCurrentUser().getUid().trim()+".jpg");
+        StorageReference riversRef = FirebaseStorage.getInstance().getReference().child("ProfilePhoto/"+FirebaseAuth.getInstance().getCurrentUser().getUid().trim()+".jpg");
         Uri uriOfDefaultImage = Uri.parse("android.resource://com.example.aditya.firebaseuser/drawable/"+R.drawable.default_profile);
         riversRef.putFile(uriOfDefaultImage)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
