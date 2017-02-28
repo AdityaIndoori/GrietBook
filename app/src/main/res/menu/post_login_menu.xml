@@ -3,9 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="Inbox"
-        android:id="@+id/menuInboxItemPL" />
+        android:id="@+id/menuInboxItemPL"
+        android:icon="@drawable/ic_message_white_48dp"
+        app:showAsAction="always"/>
     <item android:title="Search"
-        android:id="@+id/menuSearchItemPL"/>
+        android:id="@+id/menuSearchItemPL"
+        android:icon="@drawable/ic_search_white_48dp"
+        app:showAsAction="always"/>
     <item android:title="Verify"
         android:id="@+id/menuVerifyItemPL"/>
     <item android:title="Logout"
